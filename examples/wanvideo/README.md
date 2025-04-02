@@ -10,6 +10,13 @@ cd DiffSynth-Studio
 pip install -e .
 ```
 
+Wan-Video supports multiple Attention implementations. If you have installed any of the following Attention implementations, they will be enabled based on priority.
+
+* [Flash Attention 3](https://github.com/Dao-AILab/flash-attention)
+* [Flash Attention 2](https://github.com/Dao-AILab/flash-attention)
+* [Sage Attention](https://github.com/thu-ml/SageAttention)
+* [torch SDPA](https://pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html) (default. `torch>=2.5.0` is recommended.)
+
 ## Inference
 
 ### Wan-Video-1.3B-T2V
@@ -125,8 +132,8 @@ CUDA_VISIBLE_DEVICES="0" python examples/wanvideo/train_wan_t2v.py \
   --steps_per_epoch 500 \
   --max_epochs 10 \
   --learning_rate 1e-4 \
-  --lora_rank 4 \
-  --lora_alpha 4 \
+  --lora_rank 16 \
+  --lora_alpha 16 \
   --lora_target_modules "q,k,v,o,ffn.0,ffn.2" \
   --accumulate_grad_batches 1 \
   --use_gradient_checkpointing
